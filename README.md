@@ -1,2 +1,2 @@
-# notifyerjs
-Web Notifications Handler (requirejs module)
+# alertjs
+Web Alert Handler (requirejs module)
