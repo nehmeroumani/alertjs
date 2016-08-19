@@ -9,6 +9,9 @@ define('alertjs', ['jquery'], function ($) {
         init: function (alertContainerSelector, direction) {
             this.alertContainer = $(alertContainerSelector);
             this.direction = direction;
+            if(this.alertContainer.length > 0){
+                this.alertContainer.addClass(this.direction);
+            }
             return this;
         },
         getRealProgressId: function () {
@@ -40,7 +43,7 @@ define('alertjs', ['jquery'], function ($) {
                         alertProgress.animate({ width: '100%' }, self.normalDelay);
                         setTimeout(function () {
                             self.hideAlert(activeAlert);
-                        }, self.normalDelay + 1000);
+                        }, self.normalDelay + 100);
                     }
                 });
             }
@@ -48,12 +51,7 @@ define('alertjs', ['jquery'], function ($) {
         },
         hideAlert: function (activeAlert) {
             var self = this;
-            var hideAnimationOptions = { opacity: 0.25 };
-            if (self.direction == "ltr") {
-                hideAnimationOptions.left = '150%';
-            } else {
-                hideAnimationOptions.right = '150%';
-            }
+            var hideAnimationOptions = { opacity: 0.25, left: '150%' };
             activeAlert.animate(hideAnimationOptions, 800, function () {
                 activeAlert.remove();
                 if (!self.alertContainer.html()) {

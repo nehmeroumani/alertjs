@@ -1,0 +1,162 @@
+/* ============== ALERTJS ============ */
+
+#alert{
+    width: 320px;
+    position: fixed;
+    top: 0;
+    right: 15px;
+    z-index: 9999;
+    
+    .alert{
+        margin-top: 15px;
+        min-height: 80px;
+        background-color: #ebebeb;
+        padding: 10px 15px 10px 90px;
+        position: relative;
+        left: 150%;
+        top: 0;
+        opacity: 0.25; 
+        @include display-flex();
+        @include align-items(center);
+        
+        &:before{
+            display: block;
+            width: 80px;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            content: "";
+            z-index: 3;
+        }
+        
+        &:after{
+            @extend %dripicons;
+            color: white;
+            position: absolute;
+            text-align: center;
+            font-size: 42px;
+            left: 0;
+            display: block;
+            width: 80px;
+            top: 50%;
+            @include translateY(-50%);
+            line-height: 1;
+            z-index: 4;
+        }
+        
+        &.error:before, &.fail:before{
+            background-color: $brand-danger;
+        }
+        
+        &.error:after, &.fail:after{
+            content: '9';
+        }
+        &.warning:before{
+            background-color: $brand-warning;
+        }
+        
+        &.warning:after{
+            content: '\e063';
+        }
+        &.info:before{
+            background-color: $brand-info;
+        }
+        
+        &.info:after{
+            content: '\e009';
+        }
+       
+        &.success:before{
+            background-color: $brand-success;
+        }
+        
+        &.success:after{
+            content: 'S';
+        }
+        
+        .progress{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            z-index: 5;
+        }
+
+        &.fail, &.error{
+            .progress{
+               background-color: transparentize($brand-danger, 0.8);
+            }
+        }        
+        &.warning{
+            .progress{
+               background-color: transparentize($brand-warning, 0.8);
+            }
+        }
+        
+        &.info{
+            .progress{
+               background-color: transparentize($brand-info, 0.8);
+            }
+        } 
+        
+        &.success{
+            .progress{
+               background-color: transparentize($brand-success, 0.8);
+            }
+        }
+    }
+
+    &.rtl{
+        .alert{
+            padding: 10px 90px 10px 15px;
+            &:before, &:after{
+                left: auto;
+                right: 0;
+            }
+
+            .progress{
+                left: auto;
+                right: 0;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-down(sm){
+    #alert{
+        right: 0;
+        top: 0;
+        width: 100%;
+        left: 0;
+        
+        .alert{
+            margin: 0;
+            width: 100%;
+            border-bottom: 2px solid white;
+            min-height: 60px;
+            font-size: 14px;
+            padding: 5px 15px 5px 75px;
+            
+            &:last-of-type{
+                border: none;
+            }
+
+            &:before{
+                width: 60px;
+            }
+            
+            &:after{
+                width: 60px;
+                font-size: 36px;
+            }
+        }
+
+        &.rtl{
+            .alert{
+                padding: 5px 75px 5px 15px;
+            }
+        }
+    }
+}
