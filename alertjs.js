@@ -28,7 +28,7 @@ define('alertjs', ['jquery'], function ($) {
                 var alert = '<div class="alert ';
                 if (hasRealProgress) {
                     realProgressId = this.getRealProgressId();
-                    alert += 'real-progress real-progress-' + realProgressId;
+                    alert += 'real-progress real-progress-' + realProgressId + ' ';
                 }
                 alert += 'hidden active ' + alertType + '">';
                 alert += alertMessage;
