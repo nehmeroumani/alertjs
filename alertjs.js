@@ -9,7 +9,7 @@ define('alertjs', ['jquery'], function ($) {
         init: function (alertContainerSelector, direction) {
             this.alertContainer = $(alertContainerSelector);
             this.direction = direction;
-            if(this.alertContainer.length > 0){
+            if (this.alertContainer.length > 0) {
                 this.alertContainer.addClass(this.direction);
             }
             return this;
@@ -38,7 +38,13 @@ define('alertjs', ['jquery'], function ($) {
                 var activeAlert = this.alertContainer.find('.alert.active');
                 activeAlert.removeClass('active');
                 var alertProgress = activeAlert.find('.progress');
-                activeAlert.animate({ opacity: 1, left: 0 }, 800, function () {
+                var showAnimationOptions = { opacity: 1 };
+                if (this.direction == 'ltr') {
+                    showAnimationOptions.left = 0;
+                } else {
+                    showAnimationOptions.right = 0;
+                }
+                activeAlert.animate(showAnimationOptions, 800, function () {
                     if (!hasRealProgress) {
                         alertProgress.animate({ width: '100%' }, self.normalDelay);
                         setTimeout(function () {
@@ -51,7 +57,12 @@ define('alertjs', ['jquery'], function ($) {
         },
         hideAlert: function (activeAlert) {
             var self = this;
-            var hideAnimationOptions = { opacity: 0.25, left: '150%' };
+            var hideAnimationOptions = { opacity: 0.25 };
+            if (this.direction == 'ltr') {
+                hideAnimationOptions.left = '150%';
+            } else {
+                hideAnimationOptions.right = '150%';
+            }
             activeAlert.animate(hideAnimationOptions, 800, function () {
                 activeAlert.remove();
                 if (!self.alertContainer.html()) {

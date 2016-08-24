@@ -1,11 +1,16 @@
 /* ============== ALERTJS ============ */
+//$direction: rtl
 
 #alert{
     width: 320px;
     position: fixed;
-    top: 0;
-    right: 15px;
-    z-index: 9999;
+    top: 60px;
+    @if $direction == ltr{
+        right: 15px;
+    }@else{
+        left: 15px;
+    }
+    z-index: 999999999;
     
     .alert{
         margin-top: 15px;
@@ -13,7 +18,11 @@
         background-color: #e7eaec;
         padding: 10px 15px 10px 90px;
         position: relative;
-        left: 150%;
+        @if $direction == ltr{
+            left: 150%;
+        }@else{
+            right: 150%;
+        }
         top: 0;
         opacity: 0.25; 
         @include display-flex();
