@@ -20,7 +20,7 @@
   ],
   "version": "1.0.3",
   "dependencies": {
-    "jquery": "^3.1.0",
+    "jquery": "2.2.4",
     "requirejs": "^2.2.0"
   }
 }
