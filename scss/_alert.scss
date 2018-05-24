@@ -1,10 +1,17 @@
 /* ============== ALERTJS ============ */
+//$direction: rtl
 
 #alert{
     width: 320px;
     position: fixed;
-    top: 0;
-    right: 15px;
+    top: 60px;
+    display: none;
+    min-height: 60px;
+    @if $direction == ltr{
+        right: 15px;
+    }@else{
+        left: 15px;
+    }
     z-index: 9999;
     
     .alert{
@@ -13,7 +20,11 @@
         background-color: #e7eaec;
         padding: 10px 15px 10px 90px;
         position: relative;
-        left: 150%;
+        @if $direction == rtl{
+            left: -600px;
+        }@else{
+            right: -600px;
+        } 
         top: 0;
         opacity: 0.25; 
         @include display-flex();
@@ -127,7 +138,7 @@
 @include media-breakpoint-down(sm){
     #alert{
         right: 0;
-        top: 0;
+        top: 0 !important;
         width: 100%;
         left: 0;
         

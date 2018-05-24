@@ -30,7 +30,7 @@ define('alertjs', ['jquery'], function ($) {
                     realProgressId = this.getRealProgressId();
                     alert += 'real-progress real-progress-' + realProgressId;
                 }
-                alert += 'active ' + alertType + '">';
+                alert += ' active ' + alertType + '">';
                 alert += alertMessage;
                 alert += '<div class="progress"></div>';
                 alert += '</div>';
@@ -38,7 +38,13 @@ define('alertjs', ['jquery'], function ($) {
                 var activeAlert = this.alertContainer.find('.alert.active');
                 activeAlert.removeClass('active');
                 var alertProgress = activeAlert.find('.progress');
-                activeAlert.animate({ opacity: 1, left: 0 }, 800, function () {
+                var animationOpts = {opacity: 1};
+                if(this.direction == 'ltr'){
+                    animationOpts.right = 0;
+                }else{
+                    animationOpts.left = 0;
+                }
+                activeAlert.animate(animationOpts, 800, function () {
                     if (!hasRealProgress) {
                         alertProgress.animate({ width: '100%' }, self.normalDelay);
                         setTimeout(function () {
@@ -49,10 +55,15 @@ define('alertjs', ['jquery'], function ($) {
             }
             return realProgressId;
         },
-        hideAlert: function (activeAlert) {
+        hideAlert: function (activeAlert, left) {
             var self = this;
-            var hideAnimationOptions = { opacity: 0.25, left: '150%' };
-            activeAlert.animate(hideAnimationOptions, 800, function () {
+            var animationOpts = {opacity: 1};
+            if(this.direction == 'ltr'){
+                animationOpts.right = '-600px';
+            }else{
+                animationOpts.left = '-600px';
+            }
+            activeAlert.animate(animationOpts, 800, function () {
                 activeAlert.remove();
                 if (!self.alertContainer.html()) {
                     self.alertContainer.hide();
